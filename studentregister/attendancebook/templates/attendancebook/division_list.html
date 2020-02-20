@@ -1,0 +1,31 @@
+
+{% extends 'attendancebook/base.html' %}
+
+{% block title %}
+  {{ attendancebook.student_classname }} - {{ block.super }}
+{% endblock %}
+
+{% block breadcrumb %}       
+      <li class="breadcrumb-item"><a href="">Student register</a></li>
+{% endblock %}
+    {% block content %}
+    <table class="table">
+      <thead class="thead-inverse">
+        <tr>
+          <th>Division</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for divisions in division_list  %}
+          <tr>
+            <td>
+                  <a href="{% url 'student_list' divisions.class_division.id %}">{{  divisions.class_division }}</a>
+              <!-- <small class="text-muted d-block">{{ board.description }}</small> -->
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endblock %}
+      

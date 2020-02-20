@@ -1,0 +1,117 @@
+{% extends 'attendancebook/base.html' %}
+<head>
+
+  <title>{% block title %}Online registers{% endblock %}</title>
+  
+  </head>
+{% block breadcrumb %}
+  <li class="breadcrumb-item"><a href="">Student Register</a></li>
+  <li class="breadcrumb-item active"> Mark attendancebook</li>
+{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+  <a href="" class="btn btn-primary">Edit</a>
+  <a href="" class="btn btn-primary">Logout</a>
+  <label for="date">Date :</label><input type="date" id="date" name="date"
+                                          min="2020-01-01" max="2020-12-31">
+</div>
+
+<table class="table">
+          <h3>Students Attendance</h3>
+  <thead class="thead-inverse">
+    <tr>
+      <th>Roll No:{{ student_list }}</th>
+      <th>Student Name:</th>
+      <th>Attendance:</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for field in students_list %}
+    <tr>
+            <td>{{ field.student_roll_no }}</td>
+            <td>{{ field.student_name }}</td>
+            <td>
+              <button class="green" style="color:green" onclick="student_present('{{ field.id }}')">Present</button>
+              <button class="red"  style="color: red" onclick="student_absent('{{ field.id }}')">Absent</button>
+            </td>
+            <td><div id="{{ field.id }}_message"></div></td>           
+        {% endfor %}
+    
+    </tr>
+
+  </tbody>
+</table>
+    
+    </div>
+   
+{% endblock %}
+{% block javascript %}
+<script>
+function student_present(id){
+  console.log("ggggg");
+    stud_id = id
+    
+          if($('.green')){
+
+          }
+   
+      
+    $.ajax({
+         url: "{% url 'mark_attendance' %}",
+         type: 'POST',
+         async: false,
+         data: {
+          stud_id: stud_id,
+          mark_attendance:true,
+         'csrfmiddlewaretoken': '{{ csrf_token }}',
+          },
+         dataType: 'json',
+         success: function(data) { 
+                    $('#'+stud_id+'_message').html(data.status);
+                  },
+         error: function(data) {
+          $('#'+stud_id+'_message').html(data.status);
+
+          }
+     });
+}
+      </script>
+<script>
+  function student_absent(id){
+    console.log("hhhhhh");
+      stud_id = id
+      console.log(stud_id);
+      if($('.red')){
+
+      }
+     
+        
+      $.ajax({
+           url: "{% url 'mark_attendance' %}",
+           type: 'POST',
+           async: false,
+           data: {
+            stud_id: stud_id,
+            mark_attendance:false,
+           'csrfmiddlewaretoken': '{{ csrf_token }}',
+  
+            },
+           dataType: 'json',
+           success: function(data) {
+            $('#'+stud_id+'_message').html(data.status);
+
+               
+            },
+           error: function(data) {
+            $('#'+stud_id+'_message').html(data.status);
+            }
+       });
+  }
+        </script>
+      {% endblock %}
+
+
+      

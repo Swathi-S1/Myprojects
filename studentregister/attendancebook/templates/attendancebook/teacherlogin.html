@@ -1,0 +1,30 @@
+{% extends 'attendancebook/base.html' %}
+
+{% block content %}
+<form method="POST" action="{% url 'login_view' %}" novalidate>
+  {% csrf_token %}
+<table>
+
+<tr>
+<td>Username:</td>
+<td>{{ teacher_login.username }}{{ teacher_login.username.errors }}</td>
+
+</tr>
+    <tr>
+      <td>Password:</td>
+      <td>{{ teacher_login.password }}{{ teacher_login.password.errors }}</td>
+      
+      </tr>   
+<tr><td></td><td><button type="submit" class="btn btn-success">Sign in</button></td>
+</tr>
+</table>
+  
+</form> 
+{% if messages %}
+<tr>
+   {% for message in messages %}
+     <td>{{ message }}</td>
+   {% endfor %}
+</tr>
+{% endif %}      
+{% endblock %}

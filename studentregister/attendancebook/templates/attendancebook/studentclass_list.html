@@ -1,0 +1,40 @@
+
+{% extends 'attendancebook/base.html' %}
+
+{% block breadcrumb %}
+  <li class="breadcrumb-item active">Student Register</li>
+{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+  <a href="" class="btn btn-primary">Edit</a>
+  <a href="{% url 'logout_view' %}" class="btn btn-primary">Logout</a></div>
+      <table class="table">
+        <thead class="thead-inverse">
+          <tr>
+            <th>Classes</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% for classes in object_list  %}
+            <tr>
+              <td>
+                    <a href="{% url 'class_division' classes.id %}">{{  classes.student_classname  }}</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>{% endblock %}
+  
+
+
+
+
+
+
+
+
+
+
+

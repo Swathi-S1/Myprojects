@@ -1,0 +1,44 @@
+{% extends 'attendancebook/base.html' %}
+{% block javascript %}
+{% endblock %}
+{% block content %}
+<form method="POST" action="{% url 'teacher_register_view' %}" novalidate>
+  {% csrf_token %}
+<table>
+  <tr>
+    <td>First Name:</td>
+    <td>{{ user_register_form.first_name }}{{ user_register_form.first_name.errors }}</td>
+    
+    </tr>
+    
+<tr>
+<td>Username:</td>
+<td>{{ user_register_form.username }}{{ user_register_form.username.errors }}</td>
+
+</tr>
+
+<tr>
+  <td>Class:</td>
+  <td>{{ student_class.student_classname }}{{ student_class.student_classname.errors }}</td>
+  
+  </tr>
+  <tr>
+    <td>Division:</td>
+    <td>{{ student_division.division_name }}{{ student_division.division_name.errors }}</td>
+
+    <tr>
+      <td>Password:</td>
+      <td>{{ user_register_form.password1 }}{{ user_register_form.password1.errors }}</td>
+      
+      </tr>
+      <tr>
+      <td>Confirm Password:</td>
+      <td>{{ user_register_form.password2 }}{{ user_register_form.password2.errors }}</td>   
+      </tr>
+       
+<tr><td></td><td><button type="submit" class="btn btn-success">Sign Up</button></td>
+</tr>
+</table>
+  
+</form>       
+{% endblock %}
